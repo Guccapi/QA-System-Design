@@ -1,5 +1,5 @@
 const getDBAnswers = async () => {
-  console.log();
+  console.log('Get DB Answers');
 };
 
 const postDBAnswer = async (data) => {
