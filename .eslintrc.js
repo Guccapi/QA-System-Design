@@ -11,6 +11,7 @@ module.exports = {
   },
   plugins: ['jest'],
   rules: {
+    camelcase: 0,
     'no-console': 0,
     'eol-last': 0,
     'no-multiple-empty-lines': 0,

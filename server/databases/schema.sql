@@ -1,53 +1,35 @@
-DROP TABLE IF EXISTS "question"
+-- DROP TABLE IF EXISTS question CASCADE;
 
 CREATE TABLE "question" (
-	"Question Id" serial NOT NULL,
-	"Asker" varchar(60) NOT NULL,
-	"Email" varchar(255) NOT NULL,
-	"Body" bytea(1000) NOT NULL UNIQUE,
-	"Helpfulness" int NOT NULL,
-	"Reported" BOOLEAN NOT NULL,
-	"Date" timestamp with time zone NOT NULL,
-	"Answers" jsonb NOT NULL UNIQUE,
-	CONSTRAINT "question" PRIMARY KEY ("Question Id")
+	"question_id" serial NOT NULL,
+	"asker_name" varchar(60) NOT NULL,
+	"asker_email" varchar(60) NOT NULL,
+	"question_body" varchar(1000) NOT NULL,
+	"question_helpfulness" int NOT NULL,
+	"reported" BOOLEAN NOT NULL,
+	"question_date" TIMESTAMPTZ NOT NULL,
+	"product_id" int NOT NULL,
+	CONSTRAINT "question_pk" PRIMARY KEY ("question_id")
 ) WITH (
   OIDS=FALSE
 );
 
-DROP TABLE IF EXISTS "answer"
+DROP TABLE IF EXISTS answer CASCADE;
 
 CREATE TABLE "answer" (
-	"Answer Id" serial NOT NULL,
-	"Body" bytea(1000) NOT NULL,
-	"Date" timestamp with time zone NOT NULL,
-	"Answerer" varchar(60) NOT NULL,
-	"Helpfulness" int(60) NOT NULL,
-	"Photos" jsonb NOT NULL,
-	"Reported" BOOLEAN NOT NULL,
-	"Question Id" int NOT NULL,
-	CONSTRAINT "answer_pk" PRIMARY KEY ("Answer Id")
+	"answer_id" serial NOT NULL,
+	"question_id" int NOT NULL,
+	"body" varchar(1000) NOT NULL,
+	"date" TIMESTAMPTZ NOT NULL,
+	"answerer_name" varchar(60) NOT NULL,
+	"answerer_email" varchar(60) NOT NULL,
+	"reported" BOOLEAN NOT NULL,
+	"helpfulness" int NOT NULL,
+	"photos" jsonb,
+	CONSTRAINT "answer_pk" PRIMARY KEY ("answer_id")
 ) WITH (
   OIDS=FALSE
 );
 
 
-
-CREATE TABLE "questions & Answers" (
-	"Product Id" serial NOT NULL,
-	"Question Id" serial NOT NULL,
-	CONSTRAINT "Questions & Answers_pk" PRIMARY KEY ("Product Id")
-) WITH (
-  OIDS=FALSE
-);
-
-
-
-ALTER TABLE "Questions" ADD CONSTRAINT "Questions_fk0" FOREIGN KEY ("Answers") REFERENCES "Answers"("Answer Id");
-
-ALTER TABLE "Answers" ADD CONSTRAINT "Answers_fk0" FOREIGN KEY ("Question Id") REFERENCES "Questions"("Question Id");
-
-ALTER TABLE "Questions & Answers" ADD CONSTRAINT "Questions & Answers_fk0" FOREIGN KEY ("Question Id") REFERENCES "Questions"("Question Id");
-
-
-
-
+ALTER TABLE "answer" ADD CONSTRAINT "answer_fk0" FOREIGN KEY ("question_id") REFERENCES "question"("question_id");
