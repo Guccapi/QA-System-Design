@@ -25,7 +25,7 @@ CREATE TABLE "answer" (
 	"answerer_email" varchar(60) NOT NULL,
 	"reported" BOOLEAN NOT NULL,
 	"helpfulness" int NOT NULL,
-	"photos" jsonb,
+	"photos" json,
 	CONSTRAINT "answer_pk" PRIMARY KEY ("answer_id")
 ) WITH (
   OIDS=FALSE
