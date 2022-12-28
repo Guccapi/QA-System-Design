@@ -5,7 +5,7 @@ const morgan = require('morgan');
 const { answersRouter, questionsRouter } = require('./routers');
 
 const corsOptions = {
-  origin: 'http://localhost',
+  origin: 'http://localhost/',
   methods: ['GET', 'POST', 'PUT'],
   maxAge: '3600',
 };

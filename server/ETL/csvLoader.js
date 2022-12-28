@@ -1,13 +1,9 @@
-/* eslint-disable guard-for-in */
-/* eslint-disable no-restricted-syntax */
 const csv = require('csv-parser');
 const fs = require('fs');
 const path = require('path');
 const fns = require('date-fns');
 const pgp = require('pg-promise')({});
-
-const cn = 'postgres://postgres:BosphorusBaklava69@localHost:5432/test';
-const db = pgp(cn);
+const db = require('../databases/postgres.js');
 
 const questions = [];
 const qcs = new pgp.helpers.ColumnSet(
@@ -124,23 +120,23 @@ fs.createReadStream(path.join(__dirname, './CSVS/answers.csv'))
     console.error(err);
   });
 
-const test = {};
+const photos = {};
 
 fs.createReadStream(path.join(__dirname, './CSVS/answers_photos.csv'))
   .pipe(csv())
   .on('data', (data) => {
-    if (!test[data.answer_id]) {
-      test[data.answer_id] = [{ id: data.id, url: data.url }];
+    if (!photos[data.answer_id]) {
+      photos[data.answer_id] = [{ id: data.id, url: data.url }];
     } else {
-      test[data.answer_id].push({ id: data.id, url: data.url });
+      photos[data.answer_id].push({ id: data.id, url: data.url });
     }
   })
   .on('end', () => {
     db.tx((t) => {
-      const queries = Object.keys(test).map((id) => {
+      const queries = Object.keys(photos).map((id) => {
         return t.any(
           `UPDATE answer SET photos = '${JSON.stringify(
-            test[id],
+            photos[id],
           )}' WHERE answer_id = ${id}`,
         );
       });
