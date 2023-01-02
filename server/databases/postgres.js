@@ -5,6 +5,7 @@ const cn = {
   user: 'Mo',
   database: 'test',
 };
+
 const db = pgp(cn);
 
 module.exports = db;
