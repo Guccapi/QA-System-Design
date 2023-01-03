@@ -25,7 +25,7 @@ CREATE TABLE "answer" (
 	"answerer_email" varchar(60) NOT NULL,
 	"reported" BOOLEAN NOT NULL DEFAULT false,
 	"helpfulness" int NOT NULL DEFAULT 0,
-	"photos" json DEFAULT '[]',
+	"photos" jsonb DEFAULT '[]',
 	CONSTRAINT "answer_pk" PRIMARY KEY ("answer_id")
 ) WITH (
   OIDS=FALSE
@@ -33,3 +33,6 @@ CREATE TABLE "answer" (
 
 
 ALTER TABLE "answer" ADD CONSTRAINT "answer_fk0" FOREIGN KEY ("question_id") REFERENCES "question"("question_id");
+
+
+Create INDEX question_id_index ON answer (question_id);
