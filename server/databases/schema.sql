@@ -35,3 +35,7 @@ ALTER TABLE "answer" ADD CONSTRAINT "answer_fk0" FOREIGN KEY ("question_id") REF
 CREATE INDEX question_id_index ON answer (question_id);
 
 CREATE INDEX product_id_index ON question (product_id);
+
+CREATE INDEX reported_question_index ON question (reported);
+
+CREATE INDEX reported_answer_index ON answer (reported);
