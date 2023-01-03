@@ -33,4 +33,5 @@ CREATE TABLE "answer" (
 ALTER TABLE "answer" ADD CONSTRAINT "answer_fk0" FOREIGN KEY ("question_id") REFERENCES "question"("question_id");
 
 CREATE INDEX question_id_index ON answer (question_id);
+
 CREATE INDEX product_id_index ON question (product_id);
