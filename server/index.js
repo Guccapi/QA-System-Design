@@ -23,4 +23,6 @@ app.use(answersRouter);
 app.use('/qa/questions', questionsRouter);
 app.use(morgan('dev'));
 
-app.listen(PORT, console.log(`Now listening on http://localhost:${PORT}`));
+app.set('port', PORT);
+
+module.exports = app;

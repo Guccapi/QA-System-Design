@@ -3,12 +3,12 @@ const {
   questions: { getQuestions, postQuestion, putQHelpfulness, putQReported },
 } = require('../controllers');
 
-questionsRouter.get('/', getQuestions);
+questionsRouter.get('/:product_id?/:count?/:page?', getQuestions);
 
-questionsRouter.post('/', postQuestion);
+questionsRouter.post('/:product_id?', postQuestion);
 
-questionsRouter.put('/:question_id/helpful', putQHelpfulness);
+questionsRouter.put('/:question_id?/helpful', putQHelpfulness);
 
-questionsRouter.put('/:question_id/report', putQReported);
+questionsRouter.put('/:question_id?/report', putQReported);
 
 module.exports = questionsRouter;

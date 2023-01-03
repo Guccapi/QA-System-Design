@@ -1,9 +1,10 @@
-require('dotenv').Config();
+require('dotenv').config();
 const pgp = require('pg-promise')({});
 
 const cn = {
-  user: 'Mo',
+  user: 'postgres',
   database: 'test',
+  password: 'BosphorusBaklava69',
 };
 
 const db = pgp(cn);

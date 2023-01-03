@@ -5,8 +5,8 @@ CREATE TABLE "question" (
 	"asker_name" varchar(60) NOT NULL,
 	"asker_email" varchar(60) NOT NULL,
 	"question_body" varchar(1000) NOT NULL,
-	"question_helpfulness" int NOT NULL,
-	"reported" BOOLEAN NOT NULL,
+	"question_helpfulness" int NOT NULL DEFAULT 0,
+	"reported" BOOLEAN NOT NULL DEFAULT false,
 	"question_date" TIMESTAMPTZ NOT NULL,
 	"product_id" int NOT NULL,
 	CONSTRAINT "question_pk" PRIMARY KEY ("question_id")
@@ -23,9 +23,9 @@ CREATE TABLE "answer" (
 	"date" TIMESTAMPTZ NOT NULL,
 	"answerer_name" varchar(60) NOT NULL,
 	"answerer_email" varchar(60) NOT NULL,
-	"reported" BOOLEAN NOT NULL,
-	"helpfulness" int NOT NULL,
-	"photos" json,
+	"reported" BOOLEAN NOT NULL DEFAULT false,
+	"helpfulness" int NOT NULL DEFAULT 0,
+	"photos" json DEFAULT '[]',
 	CONSTRAINT "answer_pk" PRIMARY KEY ("answer_id")
 ) WITH (
   OIDS=FALSE

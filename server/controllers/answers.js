@@ -1,10 +1,17 @@
+const fns = require('date-fns');
+
 const {
   answers: { getDBAnswers, postDBAnswer, putDBAHelpfulness, putDBAReported },
 } = require('../models');
 
 const getAnswers = async (req, res) => {
+  const query = {
+    question_id: req.query.question_id || req.params.question_id,
+    count: req.query.count || req.params.count,
+    page: req.query.page || req.params.page,
+  };
   try {
-    const answers = await getDBAnswers();
+    const answers = await getDBAnswers(query);
     res.send(answers);
   } catch (err) {
     console.error(err);
@@ -13,8 +20,16 @@ const getAnswers = async (req, res) => {
 };
 
 const postAnswer = async (req, res) => {
+  const query = [
+    req.query.question_id || req.params.question_id || req.body.question_id,
+    req.body.body,
+    fns.fromUnixTime(Date.now() / 1000).toISOString(),
+    req.body.name,
+    req.body.email,
+    req.body.photos || [],
+  ];
   try {
-    await postDBAnswer(req.body);
+    await postDBAnswer(query);
     res.sendStatus(201);
   } catch (err) {
     console.error(err);
@@ -23,8 +38,10 @@ const postAnswer = async (req, res) => {
 };
 
 const putAHelpfulness = async (req, res) => {
+  const answer_id =
+    req.query.answer_id || req.params.answer_id || req.body.answer_id;
   try {
-    await putDBAHelpfulness(req.body);
+    await putDBAHelpfulness(answer_id);
     res.sendStatus(204);
   } catch (err) {
     console.error(err);
@@ -33,8 +50,10 @@ const putAHelpfulness = async (req, res) => {
 };
 
 const putAReported = async (req, res) => {
+  const answer_id =
+    req.query.answer_id || req.params.answer_id || req.body.answer_id;
   try {
-    await putDBAReported(req.body);
+    await putDBAReported(answer_id);
     res.sendStatus(204);
   } catch (err) {
     console.error(err);

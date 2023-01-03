@@ -3,12 +3,11 @@ const fs = require('fs');
 const path = require('path');
 const fns = require('date-fns');
 const pgp = require('pg-promise')({});
-const db = require('../databases/postgres.js');
+const db = require('../databases/postgres');
 
 const questions = [];
 const qcs = new pgp.helpers.ColumnSet(
   [
-    'question_id',
     'asker_name',
     'asker_email',
     'question_body',
@@ -23,7 +22,7 @@ const qcs = new pgp.helpers.ColumnSet(
 fs.createReadStream(path.join(__dirname, './CSVS/questions.csv'))
   .pipe(csv())
   .on('data', (data) => {
-    const question_id = Number(data.id);
+    // const question_id = Number(data.id);
     const asker_name = data.asker_name.replaceAll("'", "''");
     const asker_email = data.asker_email.replaceAll("'", "''");
     const question_body = data.body.replaceAll("'", "''");
@@ -34,7 +33,7 @@ fs.createReadStream(path.join(__dirname, './CSVS/questions.csv'))
       .toISOString();
     const product_id = Number(data.product_id);
     questions.push({
-      question_id,
+      // question_id,
       asker_name,
       asker_email,
       question_body,
@@ -58,7 +57,7 @@ fs.createReadStream(path.join(__dirname, './CSVS/questions.csv'))
 const answers = [];
 const acs = new pgp.helpers.ColumnSet(
   [
-    'answer_id',
+    // 'answer_id',
     'question_id',
     'body',
     'date',
@@ -83,7 +82,7 @@ const queryAnswer = async (query1, query2) => {
 fs.createReadStream(path.join(__dirname, './CSVS/answers.csv'))
   .pipe(csv())
   .on('data', async (data) => {
-    const answer_id = Number(data.id);
+    // const answer_id = Number(data.id);
     const question_id = Number(data.question_id);
     const body = data.body.replaceAll("'", "''");
     const date = fns.fromUnixTime(data.date_written / 1000).toISOString();
@@ -92,7 +91,7 @@ fs.createReadStream(path.join(__dirname, './CSVS/answers.csv'))
     const reported = data.reported !== '0';
     const helpfulness = Number(data.helpful);
     answers.push({
-      answer_id,
+      // answer_id,
       question_id,
       body,
       date,

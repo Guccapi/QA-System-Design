@@ -4,7 +4,9 @@
   "description": "QA System Design API",
   "main": "server/",
   "scripts": {
-    "start": "npx nodemon --watch server server/index.js"
+    "start": "npx nodemon --watch server server/server.js",
+    "test": "jest --silent",
+    "test-watch": "jest --watchAll --silent"
   },
   "repository": {
     "type": "git",
@@ -35,6 +37,7 @@
     "eslint-config-airbnb": "^19.0.4",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jest": "^27.1.7",
-    "jest": "^29.3.1"
+    "jest": "^29.3.1",
+    "supertest": "^6.3.3"
   }
 }
