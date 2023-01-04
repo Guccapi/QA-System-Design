@@ -1,5 +1,5 @@
--- DROP TABLE IF EXISTS question CASCADE;
--- DROP TABLE IF EXISTS answer CASCADE;
+DROP TABLE IF EXISTS question CASCADE;
+DROP TABLE IF EXISTS answer CASCADE;
 
 CREATE TABLE "question" (
 	"question_id" bigserial NOT NULL,

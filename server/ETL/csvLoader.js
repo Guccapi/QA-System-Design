@@ -115,7 +115,7 @@ const parseAnswers = () => {
 const parsePhotos = () => {
   const photos = {};
 
-  fs.createReadStream(path.join(__dirname, './CSVS/answers_photos.csv'))
+  fs.createReadStream(path.join(__dirname, './CSVS/testPhotos.csv'))
     .pipe(csv())
     .on('data', (data) => {
       if (!photos[data.answer_id]) {
@@ -162,5 +162,61 @@ const parseCSVS = async () => {
     console.log('PARSING DONE!');
   }
 };
-
 parseCSVS();
+
+// parsePhotos();
+
+// const parsePhotos = () => {
+//   const photos = [];
+//   const pcs = new pgp.helpers.ColumnSet(
+//     [
+//       '?answer_id',
+//       {
+//         name: 'photos',
+//         mod: ':raw',
+//         init: (c) => `${pgp.as.json({ photos: c.source.photos })}`,
+//         // cast: 'array',
+//       },
+//     ],
+//     {
+//       table: 'answer',
+//     },
+//   );
+
+//   fs.createReadStream(path.join(__dirname, './CSVS/testPhotos.csv'))
+//     .pipe(csv())
+//     .on('data', (data) => {
+//       photos.push({ answer_id: data.answer_id, id: data.id, url: data.url });
+//     })
+//     .on('end', async () => {
+//       const reducedPhotos = await photos.reduce((acc, photo) => {
+//         for (let i = 0; i <= acc.length; i += 1) {
+//           if (i === acc.length) {
+//             acc.push({
+//               answer_id: Number(photo.answer_id),
+//               photos: [{ id: photo.id, url: photo.url }],
+//             });
+//             break;
+//           }
+//           if (acc[i]?.answer_id === Number(photo?.answer_id)) {
+//             acc[i].photos.push({ id: photo.id, url: photo.url });
+//             break;
+//           }
+//         }
+//         return acc;
+//       }, []);
+
+//       try {
+//         const update = `${pgp.helpers.update(
+//           reducedPhotos,
+//           pcs,
+//         )} WHERE v.answer_id = t.answer_id`;
+//         db.none(update);
+//       } finally {
+//         console.log('Photos Parsing Complete!');
+//       }
+//     })
+//     .on('error', (err) => {
+//       console.error(err);
+//     });
+// };
