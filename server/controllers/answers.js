@@ -26,7 +26,7 @@ const postAnswer = async (req, res) => {
     fns.fromUnixTime(Date.now() / 1000).toISOString(),
     req.body.name,
     req.body.email,
-    req.body.photos || [],
+    JSON.stringify(req.body.photos) || JSON.stringify([]),
   ];
   try {
     await postDBAnswer(query);

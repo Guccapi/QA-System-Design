@@ -14,6 +14,18 @@ export const options = {
   },
 };
 
+// export let options = {
+//   scenarios: {
+//     hot: {
+//       executor: 'constant-arrival-rate',
+//       rate: 1000,
+//       timeUnit: '1s',
+//       duration: '10s',
+//       preAllocatedVUs: 2000,
+//     },
+//   },
+// };
+
 export default () => {
   const res = http.get('http://localhost:8080/qa/questions/1');
   const success = check(res, {
