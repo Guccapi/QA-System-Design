@@ -2,8 +2,16 @@ const csv = require('csv-parser');
 const fs = require('fs');
 const path = require('path');
 const fns = require('date-fns');
-const pgp = require('pg-promise')({});
-const db = require('../databases/postgres');
+const pgp = require('pg-promise')({ capSQL: true });
+const { PG_USER, PG_DATABASE, PG_PASS } = require('../../config');
+
+const cn = {
+  user: PG_USER,
+  database: PG_DATABASE,
+  password: PG_PASS,
+};
+
+const db = pgp(cn);
 
 const parseQuestions = () => {
   const questions = [];
@@ -115,7 +123,7 @@ const parseAnswers = () => {
 const parsePhotos = () => {
   const photos = {};
 
-  fs.createReadStream(path.join(__dirname, './CSVS/testPhotos.csv'))
+  fs.createReadStream(path.join(__dirname, './CSVS/answers_photos.csv'))
     .pipe(csv())
     .on('data', (data) => {
       if (!photos[data.answer_id]) {
