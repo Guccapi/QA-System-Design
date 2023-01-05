@@ -7,9 +7,18 @@ const getDBQuestions = async ({ product_id, count, page }) => {
         count || 5
       } OFFSET ${page * count - count || 0}`,
     );
-    return Promise.resolve(
-      query.sort((a, b) => b.question_helpfulness - a.question_helpfulness),
-    );
+    query.forEach((q) => {
+      q.question_id = Number(q.question_id);
+      q.question_helpfulness = Number(q.question_helpfulness);
+      delete q.product_id;
+      delete q.asker_email;
+    });
+    return Promise.resolve({
+      product_id,
+      results: query.sort(
+        (a, b) => b.question_helpfulness - a.question_helpfulness,
+      ),
+    });
   } catch (err) {
     console.error(err);
     return Promise.reject(err);

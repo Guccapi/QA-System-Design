@@ -7,7 +7,22 @@ const getDBAnswers = async ({ question_id, count, page }) => {
         count || 5
       } OFFSET ${page * count - count || 0}`,
     );
-    return Promise.resolve(query.sort((a, b) => b.helpfulness - a.helpfulness));
+    query.forEach((a) => {
+      a.answer_id = Number(a.answer_id);
+      a.helpfulness = Number(a.helpfulness);
+      delete a.answerer_email;
+      delete a.question_id;
+      delete a.reported;
+      a.photos.forEach((photo) => {
+        photo.id = Number(photo.id);
+      });
+    });
+    return Promise.resolve({
+      question: question_id,
+      page: page || 1,
+      count: count || 5,
+      results: query.sort((a, b) => b.helpfulness - a.helpfulness),
+    });
   } catch (err) {
     console.error(err);
     return Promise.reject(err);
