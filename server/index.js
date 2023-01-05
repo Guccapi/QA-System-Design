@@ -5,15 +5,15 @@ const morgan = require('morgan');
 const { answersRouter, questionsRouter } = require('./routers');
 
 const corsOptions = {
-  origin: 'http://localhost',
-  methods: ['GET', 'POST', 'PUT'],
+  origin: '*',
+  'Access-Control-Allow-Origin': '*',
+  methods: ['GET', 'POST', 'PUT', 'OPTIONS'],
   maxAge: '3600',
 };
 
-const app = express();
-
 answersRouter.use(cors(corsOptions));
 questionsRouter.use(cors(corsOptions));
+const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

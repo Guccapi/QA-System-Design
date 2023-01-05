@@ -16,6 +16,7 @@ const getQuestions = async (req, res) => {
   };
   try {
     const questions = await getDBQuestions(query);
+    res.header('Access-Control-Allow-Origin', '*');
     res.send(questions);
   } catch (err) {
     console.error(err);
@@ -33,6 +34,7 @@ const postQuestion = async (req, res) => {
   ];
   try {
     await postDBQuestion(query);
+    res.header('Access-Control-Allow-Origin', '*');
     res.sendStatus(201);
   } catch (err) {
     console.error(err);
@@ -46,6 +48,7 @@ const putQHelpfulness = async (req, res) => {
   console.log(question_id);
   try {
     await putDBQHelpfulness(question_id);
+    res.header('Access-Control-Allow-Origin', '*');
     res.sendStatus(204);
   } catch (err) {
     console.error(err);
@@ -58,6 +61,7 @@ const putQReported = async (req, res) => {
     req.query.question_id || req.params.question_id || req.body.question_id;
   try {
     await putDBQReported(question_id);
+    res.header('Access-Control-Allow-Origin', '*');
     res.sendStatus(204);
   } catch (err) {
     console.error(err);
