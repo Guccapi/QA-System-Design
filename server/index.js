@@ -1,7 +1,6 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const morgan = require('morgan');
 const { answersRouter, questionsRouter } = require('./routers');
 
 const corsOptions = {
@@ -18,7 +17,6 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(morgan('dev'));
 app.use(answersRouter);
 app.use('/qa/questions', questionsRouter);
 
