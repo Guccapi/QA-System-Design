@@ -17,9 +17,9 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get(`/${process.env.LOADERIO_KEY}`, (req, res) => {
-  res.send(process.env.LOADERIO_KEY);
-});
+// app.get(`/${process.env.LOADERIO_KEY}`, (req, res) => {
+//   res.send(process.env.LOADERIO_KEY);
+// });
 
 app.use(answersRouter);
 app.use('/qa/questions', questionsRouter);
