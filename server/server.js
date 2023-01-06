@@ -17,9 +17,6 @@ if (cluster.isPrimary) {
     cluster.fork();
   });
 } else {
-  app.get(`/${process.env.LOADERIO_KEY}`, (req, res) => {
-    res.send(process.env.LOADERIO_KEY);
-  });
   app.listen(app.get('port'), () => {
     console.log(`Worker ${process.pid} running on ${app.get('port')}`);
   });
