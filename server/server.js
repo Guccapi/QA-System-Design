@@ -18,8 +18,6 @@ if (cluster.isPrimary) {
   });
 } else {
   app.listen(app.get('port'), () => {
-    console.log(
-      `Worker ${process.pid} running on http://localhost:${app.get('port')}`,
-    );
+    console.log(`Worker ${process.pid} running on ${app.get('port')}`);
   });
 }
