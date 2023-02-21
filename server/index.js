@@ -13,9 +13,6 @@ const corsOptions = {
 answersRouter.use(cors(corsOptions));
 questionsRouter.use(cors(corsOptions));
 const app = express();
-app.get(`/${process.env.LOADERIO_KEY}`, (req, res) => {
-  res.send(process.env.LOADERIO_KEY);
-});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
